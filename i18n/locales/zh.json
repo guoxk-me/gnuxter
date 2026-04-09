@@ -1,0 +1,133 @@
+{
+  "site": {
+    "tagline": "一个面向双语文档、博客与更新日志的 Nuxt 模板起点。"
+  },
+  "nav": {
+    "home": "首页",
+    "docs": "文档",
+    "blog": "博客",
+    "changelog": "更新日志",
+    "search": "搜索"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "footer": {
+    "stack": "基于 Nuxt 4、Nuxt Content、shadcn-vue、Tailwind、i18n 与 Nuxt SEO 构建。",
+    "next": "已经可以继续补文档侧栏、搜索、标签系统和更多内容工作流。"
+  },
+  "hero": {
+    "badge": "内容优先模板",
+    "title": "基于 shadcn-vue 与 Tailwind 的 Nuxt 内容模板，已经具备继续变重的基础。",
+    "description": "现在你拿到的是一个带组件系统、双语内容路由和 SEO 基线的壳层，而不只是一个空项目。",
+    "primaryCta": "查看文档",
+    "secondaryCta": "阅读博客",
+    "cards": {
+      "primitives": {
+        "title": "基础组件",
+        "description": "按钮、卡片、导航、抽屉、提示、分页、头像和表单控件都已经就位。"
+      },
+      "tokens": {
+        "title": "Tailwind 设计变量",
+        "description": "浅色与深色主题已经通过 CSS 变量接好，整体基调适合内容型站点。"
+      },
+      "next": {
+        "title": "下一层能力",
+        "description": "现在这套壳已经具备 Nuxt Content、国际化路由和 SEO 基线，可以继续长成完整模板。"
+      }
+    }
+  },
+  "home": {
+    "badge": "中文视图",
+    "title": "在真实内容集合之上搭建你的双语文档与博客系统。",
+    "description": "这个 starter 现在已经提供 docs、blog、changelog 三个内容集合。英文保持默认路由，中文通过语言前缀路由进入。",
+    "docsCta": "浏览文档",
+    "blogCta": "阅读博客",
+    "latestBlog": "最新博客",
+    "latestBlogDescription": "这些示例内容来自 blog 集合。",
+    "openDoc": "打开文档",
+    "seoTitle": "双语内容模板",
+    "seoDescription": "一个集成 shadcn-vue、Nuxt Content、国际化路由和 SEO 基础能力的 Nuxt 内容模板。"
+  },
+  "docs": {
+    "badge": "文档",
+    "articleBadge": "文档文章",
+    "title": "文档中心",
+    "description": "这里放的是指南、结构说明和双语知识库的第一层骨架。",
+    "read": "阅读文档",
+    "sectionLabel": "分组",
+    "sectionDescription": "这个分组下当前共有 {count} 篇文档。",
+    "copySectionLink": "跳到分组",
+    "uncategorized": "未分类",
+    "sidebar": "本节导航",
+    "sidebarDescription": "快速切换当前文档分支中的页面。",
+    "toc": "本页目录",
+    "tocDescription": "直接跳到当前文章的重要段落。",
+    "prev": "上一篇文档",
+    "next": "下一篇文档",
+    "notFound": "未找到文档",
+    "seoTitle": "文档",
+    "seoDescription": "双语 Nuxt 模板的入门指南与内容结构说明。"
+  },
+  "blog": {
+    "badge": "博客",
+    "articleBadge": "博客文章",
+    "tagBadge": "标签归档",
+    "authorBadge": "作者",
+    "title": "博客记录",
+    "description": "用来沉淀模板设计、内容系统和实现取舍的文章空间。",
+    "read": "阅读全文",
+    "tags": "热门标签",
+    "tagsDescription": "从标签切入，查看当前模板已经覆盖的主题。",
+    "openAllTags": "查看全部标签",
+    "authorHeading": "维护者",
+    "authorCta": "查看作者归档",
+    "openAllAuthors": "查看全部作者",
+    "authorTitle": "作者",
+    "authorDescription": "按维护者查看这个模板当前已经发布的文章。",
+    "authorPosts": "该作者的文章",
+    "authorPostsDescription": "当前归属于这个作者档案的全部已发布内容。",
+    "authorTopics": "涉及主题",
+    "authorTopicsDescription": "从作者页继续沿着相关标签浏览内容。",
+    "authorEmpty": "这个作者暂时还没有已发布文章。",
+    "authorNotFound": "未找到作者",
+    "authorsIndexTitle": "作者列表",
+    "authorsIndexDescription": "查看当前在这个 starter 博客中发布内容的维护者与作者档案。",
+    "authorsIndexEmpty": "暂时还没有作者发布文章。",
+    "openAuthor": "打开作者页",
+    "tagTitle": "标签归档",
+    "tagDescription": "查看与 {tag} 相关的博客内容。",
+    "tagEmpty": "这个标签下暂时还没有已发布文章。",
+    "tagsIndexTitle": "标签列表",
+    "tagsIndexDescription": "查看当前这套 starter 博客已经覆盖的主题标签。",
+    "tagsIndexEmpty": "暂时还没有可用标签。",
+    "openTag": "打开标签页",
+    "relatedTags": "相关标签",
+    "relatedTagsDescription": "继续沿着相近主题浏览这部分博客内容。",
+    "backToBlog": "返回博客",
+    "notFound": "未找到文章",
+    "seoTitle": "博客",
+    "seoDescription": "记录双语 Nuxt 内容模板设计与实现演进的博客内容。"
+  },
+  "changelog": {
+    "badge": "更新日志",
+    "title": "版本记录",
+    "description": "追踪这个 starter 如何从样式基线继续长成完整的内容模板系统。",
+    "read": "查看详情",
+    "notFound": "未找到更新日志",
+    "seoTitle": "更新日志",
+    "seoDescription": "查看 Gnuxter 模板在内容、国际化和 SEO 方面的演进记录。"
+  },
+  "search": {
+    "badge": "搜索",
+    "title": "搜索文档、博客与更新日志",
+    "description": "现在 starter 已经有多个内容集合，可以用一个统一入口做基础检索。",
+    "placeholder": "按标题、描述、分类或标签搜索",
+    "action": "搜索",
+    "empty": "当前搜索条件下没有匹配内容。",
+    "seoTitle": "搜索",
+    "seoDescription": "在双语 Nuxt 模板的文档、博客和更新日志中进行检索。"
+  }
+}
