@@ -1,0 +1,133 @@
+{
+  "site": {
+    "tagline": "A Nuxt starter for bilingual docs, blog, and changelog content."
+  },
+  "nav": {
+    "home": "Home",
+    "docs": "Docs",
+    "blog": "Blog",
+    "changelog": "Changelog",
+    "search": "Search"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "footer": {
+    "stack": "Built with Nuxt 4, Nuxt Content, shadcn-vue, Tailwind, i18n, and Nuxt SEO.",
+    "next": "Ready for richer docs chrome, search, tagging, and more content workflows."
+  },
+  "hero": {
+    "badge": "Content-first starter",
+    "title": "Nuxt template with shadcn-vue, Tailwind, and room to grow heavy.",
+    "description": "Start with a polished shell today, then layer bilingual docs, blog, SEO, and content workflows on top.",
+    "primaryCta": "Browse docs",
+    "secondaryCta": "Read blog",
+    "cards": {
+      "primitives": {
+        "title": "UI primitives",
+        "description": "Button, card, navigation, sheet, tooltip, pagination, avatar, and form controls are ready."
+      },
+      "tokens": {
+        "title": "Tailwind tokens",
+        "description": "CSS variable theming is wired for light and dark mode, with a content-friendly neutral palette."
+      },
+      "next": {
+        "title": "Next layer",
+        "description": "The shell is now wired for Nuxt Content, locale-aware routes, and a stronger SEO baseline."
+      }
+    }
+  },
+  "home": {
+    "badge": "English default",
+    "title": "Build your bilingual docs and blog system on top of real content collections.",
+    "description": "The starter now ships with Nuxt Content collections for docs, blog, and changelog. English stays on the default route space while Chinese is handled through locale-prefixed routes.",
+    "docsCta": "Browse docs",
+    "blogCta": "Read blog",
+    "latestBlog": "Latest blog",
+    "latestBlogDescription": "Sample entries wired from the blog collection.",
+    "openDoc": "Open doc",
+    "seoTitle": "Bilingual content starter",
+    "seoDescription": "A content-first Nuxt template with shadcn-vue, Nuxt Content, bilingual routing, and SEO foundations."
+  },
+  "docs": {
+    "badge": "Docs",
+    "articleBadge": "Docs article",
+    "title": "Documentation",
+    "description": "Starter guides, content architecture, and the first structure for your bilingual knowledge base.",
+    "read": "Read doc",
+    "sectionLabel": "Section",
+    "sectionDescription": "{count} docs currently live in this section.",
+    "copySectionLink": "Jump to section",
+    "uncategorized": "Uncategorized",
+    "sidebar": "In this section",
+    "sidebarDescription": "Navigate the current documentation branch.",
+    "toc": "On this page",
+    "tocDescription": "Jump directly to the headings in this article.",
+    "prev": "Previous doc",
+    "next": "Next doc",
+    "notFound": "Document not found",
+    "seoTitle": "Documentation",
+    "seoDescription": "Starter guides and content architecture for the bilingual Nuxt template."
+  },
+  "blog": {
+    "badge": "Blog",
+    "articleBadge": "Blog article",
+    "tagBadge": "Tag archive",
+    "authorBadge": "Author",
+    "title": "Journal",
+    "description": "Notes on the template, content system, and design decisions as the starter gets heavier.",
+    "read": "Read entry",
+    "tags": "Popular tags",
+    "tagsDescription": "Jump into the topics that shape the current starter.",
+    "openAllTags": "Browse all tags",
+    "authorHeading": "Maintained by",
+    "authorCta": "View author archive",
+    "openAllAuthors": "Browse all authors",
+    "authorTitle": "Author",
+    "authorDescription": "Read entries grouped by the people maintaining the starter.",
+    "authorPosts": "Entries by this author",
+    "authorPostsDescription": "Everything currently published under this author profile.",
+    "authorTopics": "Topics covered",
+    "authorTopicsDescription": "Use these tags to move from the author archive into related themes.",
+    "authorEmpty": "This author does not have published posts yet.",
+    "authorNotFound": "Author not found",
+    "authorsIndexTitle": "Authors",
+    "authorsIndexDescription": "Browse the people and profiles currently publishing into the starter blog.",
+    "authorsIndexEmpty": "No author profiles have published posts yet.",
+    "openAuthor": "Open author",
+    "tagTitle": "Tag archive",
+    "tagDescription": "Browse blog entries related to {tag}.",
+    "tagEmpty": "No published posts match this tag yet.",
+    "tagsIndexTitle": "Tags",
+    "tagsIndexDescription": "Browse the themes that currently shape the starter blog.",
+    "tagsIndexEmpty": "No tags are available yet.",
+    "openTag": "Open tag",
+    "relatedTags": "Related tags",
+    "relatedTagsDescription": "Keep exploring nearby topics from the same slice of the blog.",
+    "backToBlog": "Back to blog",
+    "notFound": "Post not found",
+    "seoTitle": "Blog",
+    "seoDescription": "Design notes and implementation updates for the bilingual Nuxt content starter."
+  },
+  "changelog": {
+    "badge": "Changelog",
+    "title": "Release notes",
+    "description": "Track how the starter grows from a styling baseline into a fuller content system.",
+    "read": "Open note",
+    "notFound": "Changelog entry not found",
+    "seoTitle": "Changelog",
+    "seoDescription": "Release notes for the Gnuxter starter as content, i18n, and SEO capabilities expand."
+  },
+  "search": {
+    "badge": "Search",
+    "title": "Search across docs, blog, and changelog",
+    "description": "Use one search surface to scan the content collections that already ship with the starter.",
+    "placeholder": "Search by title, description, category, or tag",
+    "action": "Search",
+    "empty": "No content matches the current search query.",
+    "seoTitle": "Search",
+    "seoDescription": "Search docs, blog posts, and changelog entries across the bilingual Nuxt starter."
+  }
+}

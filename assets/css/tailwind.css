@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.99 0.01 95);
+  --foreground: oklch(0.2 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.02 255);
+  --primary: oklch(0.45 0.12 250);
+  --primary-foreground: oklch(0.98 0.01 95);
+  --secondary: oklch(0.95 0.02 255);
+  --secondary-foreground: oklch(0.25 0.02 255);
+  --muted: oklch(0.96 0.01 255);
+  --muted-foreground: oklch(0.5 0.03 255);
+  --accent: oklch(0.92 0.03 220);
+  --accent-foreground: oklch(0.25 0.02 255);
+  --destructive: oklch(0.58 0.22 28);
+  --destructive-foreground: oklch(0.98 0.01 95);
+  --border: oklch(0.9 0.01 255);
+  --input: oklch(0.9 0.01 255);
+  --ring: oklch(0.55 0.1 250);
+  --radius: 0.875rem;
+}
+
+.dark {
+  --background: oklch(0.18 0.02 255);
+  --foreground: oklch(0.96 0.01 95);
+  --card: oklch(0.22 0.02 255);
+  --card-foreground: oklch(0.96 0.01 95);
+  --popover: oklch(0.22 0.02 255);
+  --popover-foreground: oklch(0.96 0.01 95);
+  --primary: oklch(0.78 0.09 235);
+  --primary-foreground: oklch(0.18 0.02 255);
+  --secondary: oklch(0.28 0.02 255);
+  --secondary-foreground: oklch(0.96 0.01 95);
+  --muted: oklch(0.28 0.02 255);
+  --muted-foreground: oklch(0.72 0.02 255);
+  --accent: oklch(0.31 0.03 230);
+  --accent-foreground: oklch(0.96 0.01 95);
+  --destructive: oklch(0.66 0.2 24);
+  --destructive-foreground: oklch(0.18 0.02 255);
+  --border: oklch(0.3 0.02 255);
+  --input: oklch(0.3 0.02 255);
+  --ring: oklch(0.7 0.08 235);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Geist", "Avenir Next", "Segoe UI", sans-serif;
+    background-image:
+      radial-gradient(circle at top, color-mix(in oklab, var(--color-primary) 10%, transparent) 0%, transparent 34%),
+      linear-gradient(180deg, color-mix(in oklab, var(--color-accent) 22%, transparent) 0%, transparent 36%);
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+}
+
+@layer components {
+  .content-prose {
+    @apply text-base leading-8 text-foreground;
+  }
+
+  .content-prose h1 {
+    @apply text-4xl font-semibold tracking-tight sm:text-5xl;
+  }
+
+  .content-prose h2 {
+    @apply mt-12 text-2xl font-semibold tracking-tight sm:text-3xl;
+  }
+
+  .content-prose h3 {
+    @apply mt-8 text-xl font-semibold tracking-tight;
+  }
+
+  .content-prose p,
+  .content-prose ul,
+  .content-prose ol {
+    @apply mt-4 text-base leading-8 text-muted-foreground;
+  }
+
+  .content-prose ul,
+  .content-prose ol {
+    @apply pl-6;
+  }
+
+  .content-prose li {
+    @apply mt-2;
+  }
+
+  .content-prose a {
+    @apply font-medium text-primary underline underline-offset-4;
+  }
+
+  .content-prose blockquote {
+    @apply mt-6 rounded-2xl border-l-4 border-primary/40 bg-card/80 px-5 py-4 italic text-foreground;
+  }
+
+  .content-prose code {
+    @apply rounded bg-muted px-1.5 py-0.5 text-sm text-foreground;
+  }
+
+  .content-prose pre {
+    @apply mt-6 overflow-x-auto rounded-2xl border border-border/70 bg-card px-4 py-4 text-sm text-foreground shadow-sm;
+  }
+
+  .content-prose pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .content-prose hr {
+    @apply my-8 border-border;
+  }
+}
