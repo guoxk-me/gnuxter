@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About"
+  },
+  "home": {
+    "hero": {
+      "title": "Universal Nuxt Template",
+      "subtitle": "i18n, SEO, icons, fonts, state management — all configured out of the box",
+      "cta": "Explore Features"
+    },
+    "features": {
+      "title": "Integrated Features",
+      "i18n": {
+        "title": "Internationalization (i18n)",
+        "desc": "Chinese & English support, browser language detection, URL prefix strategy"
+      },
+      "seo": {
+        "title": "SEO Suite",
+        "desc": "Auto-generated sitemap, robots.txt, OG images, Schema.org structured data"
+      },
+      "tailwind": {
+        "title": "Tailwind CSS",
+        "desc": "Atomic CSS, dark mode support, custom theme configured"
+      },
+      "pinia": {
+        "title": "Pinia State",
+        "desc": "Type-safe global state with SSR and persistence support"
+      },
+      "icons": {
+        "title": "Lucide Icons",
+        "desc": "Lightweight modern icon set, server-side rendering optimized"
+      },
+      "fonts": {
+        "title": "Font Optimization",
+        "desc": "Auto-optimized Google Fonts with Chinese font support (Noto Sans SC)"
+      },
+      "csrf": {
+        "title": "CSRF Protection",
+        "desc": "Auto-injected CSRF tokens protecting forms and API requests"
+      },
+      "animate": {
+        "title": "Auto Animate",
+        "desc": "FormKit Auto Animate for smooth list and conditional render transitions"
+      }
+    }
+  },
+  "about": {
+    "title": "About This Template",
+    "desc": "A production-ready Nuxt 4 starter template with all common features pre-configured.",
+    "stack": "Tech Stack"
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  },
+  "lang": {
+    "switch": "Switch Language"
+  }
+}
