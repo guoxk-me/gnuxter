@@ -1,54 +1,39 @@
 {
   "nav": {
-    "home": "首页",
-    "about": "关于"
+    "home": "首页"
   },
   "home": {
     "hero": {
-      "title": "通用 Nuxt 模版",
-      "subtitle": "已集成国际化、SEO、图标、字体、状态管理等开箱即用配置",
-      "cta": "查看功能"
+      "title": "Gnuxter",
+      "subtitle": "一个简洁的 Nuxt 起始模板，直接演示主题、国际化、动画和 SEO。"
     },
-    "features": {
-      "title": "已集成功能",
+    "modules": {
+      "theme": {
+        "title": "主题切换",
+        "desc": "切换明暗模式。",
+        "toggle": "切换主题",
+        "current": "当前主题",
+        "light": "浅色",
+        "dark": "深色"
+      },
       "i18n": {
-        "title": "国际化 (i18n)",
-        "desc": "支持中英文切换，自动检测浏览器语言，URL 前缀策略"
+        "title": "国际化切换",
+        "desc": "切换语言并立即查看文案变化。",
+        "current": "当前语言",
+        "previewBody": "点击语言切换后，这里的内容会立即更新。"
+      },
+      "autoAnimate": {
+        "title": "自动动画",
+        "desc": "新增或删除条目时自动过渡。",
+        "add": "添加条目",
+        "remove": "删除条目",
+        "item": "条目 {id}"
       },
       "seo": {
-        "title": "SEO 套件",
-        "desc": "自动生成 sitemap、robots.txt、OG 图片、Schema.org 结构化数据"
-      },
-      "tailwind": {
-        "title": "Tailwind CSS",
-        "desc": "原子化 CSS，支持深色模式，已配置自定义主题"
-      },
-      "pinia": {
-        "title": "Pinia 状态管理",
-        "desc": "类型安全的全局状态，支持 SSR 与持久化"
-      },
-      "icons": {
-        "title": "Lucide 图标",
-        "desc": "轻量级现代图标集，服务端渲染优化"
-      },
-      "fonts": {
-        "title": "字体优化",
-        "desc": "Google Fonts 自动优化，支持中文字体 (Noto Sans SC)"
-      },
-      "csrf": {
-        "title": "CSRF 保护",
-        "desc": "自动注入 CSRF Token，保护表单和 API 请求"
-      },
-      "animate": {
-        "title": "自动动画",
-        "desc": "FormKit Auto Animate，为列表和条件渲染添加流畅动画"
+        "title": "SEO 输出",
+        "desc": "直接查看生成结果。"
       }
     }
-  },
-  "about": {
-    "title": "关于本模版",
-    "desc": "这是一个基于 Nuxt 4 的通用模版，集成了生产环境所需的常见功能。",
-    "stack": "技术栈"
   },
   "footer": {
     "rights": "保留所有权利"
