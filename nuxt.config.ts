@@ -74,6 +74,22 @@ export default defineNuxtConfig({
     serverBundle: {
       collections: ['lucide'],
     },
+    clientBundle: {
+      icons: [
+        'lucide:bot',
+        'lucide:image',
+        'lucide:languages',
+        'lucide:layers',
+        'lucide:map',
+        'lucide:moon',
+        'lucide:plus',
+        'lucide:sun',
+        'lucide:x',
+      ],
+      scan: false,
+      includeCustomCollections: false,
+      sizeLimitKb: 256,
+    },
   },
 
   // ─── OG Image ────────────────────────────────────────────────────────────────
