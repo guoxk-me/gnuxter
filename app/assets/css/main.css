@@ -1,50 +1,152 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* ─── 字体 ─────────────────────────────────────────────────────────────── */
+  --font-sans: 'Work Sans', 'Noto Serif SC', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-primary: 'Merriweather', serif;
+  --font-header: 'Playfair Display', 'Lora', serif;
+
+  /* ─── 颜色（引用 CSS 变量，inline 让工具类自动生成） ─────────────────────── */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ─── 圆角 ─────────────────────────────────────────────────────────────── */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* ─── 动画 ─────────────────────────────────────────────────────────────── */
+  --animate-slide-up: slide-up 0.5s ease-out both;
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
 
 @layer base {
   :root {
-    --color-bg: theme('colors.white');
-    --color-text: theme('colors.gray.900');
-    --color-border: theme('colors.gray.200');
-    --color-card: theme('colors.gray.50');
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.141 0.005 285.823);
+    --primary: oklch(0.21 0.006 285.885);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.967 0.001 286.375);
+    --secondary-foreground: oklch(37.3% 0.034 259.733);
+    --muted: oklch(0.967 0.001 286.375);
+    --muted-foreground: oklch(55.1% 0.027 264.364);
+    --border: oklch(0.92 0.004 286.32);
+    --input: oklch(0.92 0.004 286.32);
+    --ring: oklch(0.705 0.015 286.067);
+    --radius: 0.625rem;
   }
 
   .dark {
-    --color-bg: theme('colors.gray.950');
-    --color-text: theme('colors.gray.50');
-    --color-border: theme('colors.gray.800');
-    --color-card: theme('colors.gray.900');
+    --background: oklch(14.5% 0 0);
+    --foreground: oklch(96.7% 0.003 264.542);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.21 0.006 285.885);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(87.2% 0.01 258.338);
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(70.7% 0.022 261.325);
+    --border: oklch(0.274 0.006 286.033);
+    --input: oklch(0.274 0.006 286.033);
+    --ring: oklch(0.442 0.017 285.786);
   }
 
   html {
-    @apply scroll-smooth antialiased;
-    font-family: 'Inter', 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
+    @apply text-sm antialiased scroll-smooth;
+    font-family: 'Work Sans', 'Noto Serif SC', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    color-scheme: light dark;
   }
 
   body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    @apply transition-colors duration-200;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 0.4s ease-out, color 0.4s ease-out;
+  }
+
+  * {
+    border-color: var(--border);
+    transition:
+      background-color 0.4s ease-out,
+      color 0.4s ease-out,
+      border-color 0.4s ease-out;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+  }
+
+  header {
+    font-family: 'Playfair Display', 'Lora', serif;
+    font-weight: 500;
   }
 }
 
 @layer components {
-  .btn-primary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-600 text-white font-medium
-           hover:bg-primary-700 active:bg-primary-800 transition-colors duration-150 focus:outline-none
-           focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium
+           transition-opacity;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .btn:hover {
+    opacity: 0.8;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white dark:bg-gray-800
-           border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300
-           font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150
-           focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+  .btn-ghost {
+    @apply inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium
+           transition-colors;
+    color: var(--muted-foreground);
+    border: 1px solid var(--border);
   }
+  .btn-ghost:hover {
+    color: var(--foreground);
+    border-color: color-mix(in oklch, var(--foreground) 30%, transparent);
+  }
+}
 
-  .card {
-    @apply rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6
-           transition-shadow hover:shadow-md;
-  }
+/* Dark mode */
+.dark { color-scheme: dark; }
+.light { color-scheme: light; }
+
+/* Page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.none-enter-active,
+.none-leave-active {
+  transition: none !important;
+}
+.none-enter-from,
+.none-leave-to {
+  opacity: 1;
+  transform: none;
+}
+
+/* Buttons & links */
+button, a {
+  @apply cursor-pointer outline-hidden;
 }

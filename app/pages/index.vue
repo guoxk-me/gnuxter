@@ -2,13 +2,11 @@
 const { t, locale, locales } = useI18n()
 const appStore = useAppStore()
 
-// SEO
 useSeoMeta({
   title: () => t('home.hero.title'),
   description: () => t('home.hero.subtitle'),
 })
 
-// Schema.org
 useSchemaOrg([
   defineWebPage({
     name: () => t('home.hero.title'),
@@ -16,7 +14,6 @@ useSchemaOrg([
   }),
 ])
 
-// Auto-animate demo
 const demoList = ref([1, 2, 3])
 
 const currentLocaleName = computed(() =>
@@ -41,112 +38,98 @@ function removeItem(id: number) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-    <section class="animate-slide-up text-center">
-      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-4 py-1.5 text-sm text-gray-500 dark:text-gray-400">
-        <Icon name="lucide:zap" class="size-4" />
-        <span>Nuxt 4 Starter</span>
-      </div>
-      <h1 class="mb-4 text-5xl font-bold tracking-tight sm:text-6xl">
+  <div class="mx-auto max-w-2xl px-6 py-20 sm:py-28">
+
+    <!-- Hero -->
+    <section class="animate-slide-up mb-20">
+      <p class="mb-4 text-xs tracking-widest uppercase text-muted-foreground">
+        Nuxt 4 Starter
+      </p>
+      <h1 class="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
         {{ t('home.hero.title') }}
       </h1>
-      <p class="mx-auto max-w-xl text-base text-gray-500 dark:text-gray-400 sm:text-lg">
+      <p class="text-sm text-muted-foreground leading-relaxed max-w-md">
         {{ t('home.hero.subtitle') }}
       </p>
     </section>
 
-    <section class="mx-auto mt-14 flex max-w-2xl flex-col gap-3">
-      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 sm:px-5">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ t('home.modules.theme.title') }}</div>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ t('home.modules.theme.desc') }}</p>
-          </div>
-          <button
-            class="btn-secondary justify-center px-3 py-2 text-sm"
-            :aria-label="t('home.modules.theme.toggle')"
-            @click="appStore.toggleTheme()"
-          >
-            <Icon :name="appStore.isDark ? 'lucide:sun' : 'lucide:moon'" class="size-4" />
-            {{ t('home.modules.theme.toggle') }}
-          </button>
-        </div>
+    <!-- Feature list -->
+    <section class="divide-y divide-border">
 
-        <div class="mt-4 flex items-center justify-between rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm transition-colors">
-          <span class="text-gray-500 dark:text-gray-400">{{ t('home.modules.theme.current') }}</span>
-          <span class="font-medium">{{ appStore.isDark ? t('home.modules.theme.dark') : t('home.modules.theme.light') }}</span>
+      <!-- Theme -->
+      <div class="py-5 flex items-start justify-between gap-6">
+        <div class="min-w-0">
+          <p class="text-sm font-medium text-foreground">{{ t('home.modules.theme.title') }}</p>
+          <p class="mt-0.5 text-xs text-muted-foreground">
+            {{ appStore.isDark ? t('home.modules.theme.dark') : t('home.modules.theme.light') }}
+          </p>
         </div>
+        <button
+          class="btn-ghost shrink-0"
+          :aria-label="t('home.modules.theme.toggle')"
+          @click="appStore.toggleTheme()"
+        >
+          <Icon :name="appStore.isDark ? 'lucide:sun' : 'lucide:moon'" class="size-3.5" />
+          {{ t('home.modules.theme.toggle') }}
+        </button>
       </div>
 
-      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 sm:px-5">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ t('home.modules.i18n.title') }}</div>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ t('home.modules.i18n.desc') }}</p>
-          </div>
-          <LangSwitcher />
+      <!-- i18n -->
+      <div class="py-5 flex items-start justify-between gap-6">
+        <div class="min-w-0">
+          <p class="text-sm font-medium text-foreground">{{ t('home.modules.i18n.title') }}</p>
+          <p class="mt-0.5 text-xs text-muted-foreground">{{ currentLocaleName }}</p>
         </div>
-
-        <div class="mt-4 flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm">
-          <div class="flex items-center justify-between gap-3">
-            <span class="text-gray-500 dark:text-gray-400">{{ t('home.modules.i18n.current') }}</span>
-            <span class="font-medium">{{ currentLocaleName }}</span>
-          </div>
-          <p class="text-gray-500 dark:text-gray-400">{{ t('home.modules.i18n.previewBody') }}</p>
-        </div>
+        <LangSwitcher />
       </div>
 
-      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 sm:px-5">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ t('home.modules.autoAnimate.title') }}</div>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ t('home.modules.autoAnimate.desc') }}</p>
+      <!-- Auto Animate -->
+      <div class="py-5">
+        <div class="flex items-start justify-between gap-6">
+          <div class="min-w-0">
+            <p class="text-sm font-medium text-foreground">{{ t('home.modules.autoAnimate.title') }}</p>
+            <p class="mt-0.5 text-xs text-muted-foreground">{{ t('home.modules.autoAnimate.desc') }}</p>
           </div>
-          <button class="btn-primary justify-center text-sm" @click="addItem">
-            <Icon name="lucide:plus" class="size-4" />
+          <button class="btn shrink-0" @click="addItem">
+            <Icon name="lucide:plus" class="size-3.5" />
             {{ t('home.modules.autoAnimate.add') }}
           </button>
         </div>
-
-        <ul v-auto-animate class="mt-4 flex flex-wrap gap-2">
+        <ul v-auto-animate class="mt-3 flex flex-wrap gap-1.5">
           <li
             v-for="item in demoList"
             :key="item"
-            class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm"
+            class="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground"
           >
-            <span>{{ t('home.modules.autoAnimate.item', { id: item }) }}</span>
+            {{ t('home.modules.autoAnimate.item', { id: item }) }}
             <button
-              class="rounded-full p-0.5 text-gray-400 transition-colors hover:text-red-500"
+              class="text-muted-foreground/50 hover:text-foreground transition-colors"
               :aria-label="t('home.modules.autoAnimate.remove')"
               @click="removeItem(item)"
             >
-              <Icon name="lucide:x" class="size-3.5" />
+              <Icon name="lucide:x" class="size-3" />
             </button>
           </li>
         </ul>
       </div>
 
-      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 sm:px-5">
-        <div>
-          <div>
-            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ t('home.modules.seo.title') }}</div>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ t('home.modules.seo.desc') }}</p>
-          </div>
-        </div>
-
-        <div class="mt-4 flex flex-wrap gap-2 text-sm">
+      <!-- SEO -->
+      <div class="py-5">
+        <p class="text-sm font-medium text-foreground mb-3">{{ t('home.modules.seo.title') }}</p>
+        <div class="flex flex-wrap gap-2">
           <a
             v-for="link in seoLinks"
             :key="link.href"
             :href="link.href"
             target="_blank"
-            class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 transition-colors hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-400"
+            class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
-            <Icon :name="link.icon" class="size-4" />
+            <Icon :name="link.icon" class="size-3.5" />
             {{ link.label }}
           </a>
         </div>
       </div>
+
     </section>
   </div>
 </template>

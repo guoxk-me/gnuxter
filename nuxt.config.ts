@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -15,7 +17,6 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/scripts',
     '@nuxt/fonts',
-    '@nuxtjs/tailwindcss',
     'workflow',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
@@ -30,6 +31,11 @@ export default defineNuxtConfig({
 
   // ─── CSS ────────────────────────────────────────────────────────────────────
   css: ['~/assets/css/main.css'],
+
+  // ─── Vite ────────────────────────────────────────────────────────────────────
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   // ─── Site metadata (used by SEO suite) ──────────────────────────────────────
   site: {
