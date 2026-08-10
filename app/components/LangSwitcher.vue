@@ -2,7 +2,7 @@
 const { locale, locales, setLocale } = useI18n()
 
 const availableLocales = computed(() =>
-  locales.value.filter(l => l.code !== locale.value)
+  locales.value.filter(l => l.code !== locale.value),
 )
 </script>
 

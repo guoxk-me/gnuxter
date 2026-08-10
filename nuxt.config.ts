@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/a11y',
     '@nuxt/eslint',
+    '@vite-pwa/nuxt',
     '@vercel/analytics',
     '@vercel/speed-insights',
     '@nuxt/test-utils',
@@ -29,12 +30,79 @@ export default defineNuxtConfig({
     '@nuxt/hints',
   ],
 
+  // AI modified: keep Nuxt globals while Antfu owns the shared JS, TS, and Vue rules.
+  eslint: {
+    config: {
+      standalone: false,
+    },
+  },
+
   // ─── CSS ────────────────────────────────────────────────────────────────────
   css: ['~/assets/css/main.css'],
 
   // ─── Vite ────────────────────────────────────────────────────────────────────
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  // AI modified: provide an installable, SSR-safe PWA without caching dynamic navigations.
+  pwa: {
+    registerType: 'prompt',
+    registerWebManifestInRouteRules: true,
+    includeAssets: [
+      'favicon.ico',
+      'favicon.svg',
+      'apple-touch-icon-180x180.png',
+    ],
+    manifest: {
+      id: '/',
+      name: 'Gnuxter',
+      short_name: 'Gnuxter',
+      description: 'A universal Nuxt 4 starter template with i18n, SEO, and more.',
+      lang: 'zh-CN',
+      start_url: '/',
+      scope: '/',
+      display: 'standalone',
+      background_color: '#ffffff',
+      theme_color: '#18181b',
+      icons: [
+        {
+          src: '/pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '/pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any',
+        },
+        {
+          src: '/maskable-icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
+      ],
+    },
+    workbox: {
+      cleanupOutdatedCaches: true,
+      globPatterns: ['**/*.{css,js,mjs,ico,png,svg}'],
+      navigateFallback: null,
+    },
+  },
+
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        { rel: 'icon', href: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon-180x180.png' },
+      ],
+      meta: [
+        { name: 'theme-color', content: '#18181b' },
+      ],
+    },
   },
 
   // ─── Site metadata (used by SEO suite) ──────────────────────────────────────
@@ -125,7 +193,7 @@ export default defineNuxtConfig({
       sameSite: 'strict',
     },
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
-    excludedUrls: ['/api/health'],
+    // AI modified: route exceptions belong in routeRules, not the global module options.
     headerName: 'csrf-token',
   },
 
@@ -136,8 +204,7 @@ export default defineNuxtConfig({
 
   // ─── A11y ────────────────────────────────────────────────────────────────────
   a11y: {
-    auditUserFeedback: {
-      enabled: true,
-    },
+    // AI modified: retain browser feedback through the module's supported option.
+    logIssues: true,
   },
 })

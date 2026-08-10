@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Gnuxter</title>
+  <rect width="512" height="512" rx="112" fill="#18181b" />
+  <g
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="24"
+  >
+    <path d="M122 251 256 312l134-61" stroke="#a1a1aa" />
+    <path d="M122 326 256 387l134-61" stroke="#71717a" />
+    <path d="m256 125 134 61-134 61-134-61Z" stroke="#f4f4f5" />
+  </g>
+</svg>

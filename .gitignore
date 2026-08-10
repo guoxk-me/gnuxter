@@ -29,3 +29,6 @@ coverage/
 # Playwright
 playwright-report/
 test-results/
+
+# AI modified: ignore Workflow's local SWC cache.
+/.swc

@@ -1,7 +1,9 @@
+import type { ConfigOptions } from '@nuxt/test-utils/playwright'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, devices } from '@playwright/test'
-import type { ConfigOptions } from '@nuxt/test-utils/playwright'
 
+// AI modified: use the explicit Node process module so tooling does not depend on globals.
 export default defineConfig<ConfigOptions>({
   testDir: './tests',
   fullyParallel: true,

@@ -39,7 +39,6 @@ function removeItem(id: number) {
 
 <template>
   <div class="mx-auto max-w-2xl px-6 py-20 sm:py-28">
-
     <!-- Hero -->
     <section class="animate-slide-up mb-20">
       <p class="mb-4 text-xs tracking-widest uppercase text-muted-foreground">
@@ -55,11 +54,12 @@ function removeItem(id: number) {
 
     <!-- Feature list -->
     <section class="divide-y divide-border">
-
       <!-- Theme -->
       <div class="py-5 flex items-start justify-between gap-6">
         <div class="min-w-0">
-          <p class="text-sm font-medium text-foreground">{{ t('home.modules.theme.title') }}</p>
+          <p class="text-sm font-medium text-foreground">
+            {{ t('home.modules.theme.title') }}
+          </p>
           <p class="mt-0.5 text-xs text-muted-foreground">
             {{ appStore.isDark ? t('home.modules.theme.dark') : t('home.modules.theme.light') }}
           </p>
@@ -77,8 +77,12 @@ function removeItem(id: number) {
       <!-- i18n -->
       <div class="py-5 flex items-start justify-between gap-6">
         <div class="min-w-0">
-          <p class="text-sm font-medium text-foreground">{{ t('home.modules.i18n.title') }}</p>
-          <p class="mt-0.5 text-xs text-muted-foreground">{{ currentLocaleName }}</p>
+          <p class="text-sm font-medium text-foreground">
+            {{ t('home.modules.i18n.title') }}
+          </p>
+          <p class="mt-0.5 text-xs text-muted-foreground">
+            {{ currentLocaleName }}
+          </p>
         </div>
         <LangSwitcher />
       </div>
@@ -87,8 +91,12 @@ function removeItem(id: number) {
       <div class="py-5">
         <div class="flex items-start justify-between gap-6">
           <div class="min-w-0">
-            <p class="text-sm font-medium text-foreground">{{ t('home.modules.autoAnimate.title') }}</p>
-            <p class="mt-0.5 text-xs text-muted-foreground">{{ t('home.modules.autoAnimate.desc') }}</p>
+            <p class="text-sm font-medium text-foreground">
+              {{ t('home.modules.autoAnimate.title') }}
+            </p>
+            <p class="mt-0.5 text-xs text-muted-foreground">
+              {{ t('home.modules.autoAnimate.desc') }}
+            </p>
           </div>
           <button class="btn shrink-0" @click="addItem">
             <Icon name="lucide:plus" class="size-3.5" />
@@ -115,7 +123,9 @@ function removeItem(id: number) {
 
       <!-- SEO -->
       <div class="py-5">
-        <p class="text-sm font-medium text-foreground mb-3">{{ t('home.modules.seo.title') }}</p>
+        <p class="text-sm font-medium text-foreground mb-3">
+          {{ t('home.modules.seo.title') }}
+        </p>
         <div class="flex flex-wrap gap-2">
           <a
             v-for="link in seoLinks"
@@ -129,7 +139,6 @@ function removeItem(id: number) {
           </a>
         </div>
       </div>
-
     </section>
   </div>
 </template>
