@@ -10,6 +10,8 @@ export default defineConfig({
           name: 'unit',
           include: ['test/unit/*.{test,spec}.ts'],
           environment: 'node',
+          // AI modified: share deterministic API mocks across Vitest projects.
+          setupFiles: ['./test/setup/msw.ts'],
         },
       },
       await defineVitestProject({
@@ -17,6 +19,7 @@ export default defineConfig({
           name: 'nuxt',
           include: ['test/nuxt/*.{test,spec}.ts'],
           environment: 'nuxt',
+          setupFiles: ['./test/setup/msw.ts'],
           environmentOptions: {
             nuxt: {
               rootDir: fileURLToPath(new URL('.', import.meta.url)),

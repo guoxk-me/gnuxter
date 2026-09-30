@@ -16,17 +16,18 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     '@nuxt/icon',
+    // AI modified: share visual, composable, and SEO capabilities with gnuxter-lite.
+    '@nuxt/image',
+    '@nuxtjs/color-mode',
+    '@vueuse/nuxt',
+    // AI modified: expose Vee Validate v5 through Nuxt auto-imports.
+    '@vee-validate/nuxt',
     '@nuxt/scripts',
     '@nuxt/fonts',
     'workflow',
-    '@nuxtjs/sitemap',
-    '@nuxtjs/robots',
-    'nuxt-og-image',
-    'nuxt-schema-org',
-    'nuxt-link-checker',
-    'nuxt-csurf',
+    '@nuxtjs/seo',
+    'nuxt-security',
     '@nuxtjs/device',
-    'nuxt-seo-utils',
     '@nuxt/hints',
   ],
 
@@ -43,6 +44,24 @@ export default defineNuxtConfig({
   // ─── Vite ────────────────────────────────────────────────────────────────────
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  // AI modified: align Nuxt Color Mode with the existing Tailwind `.dark` theme tokens.
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'light',
+  },
+
+  // AI modified: prefix generic form components to avoid collisions in product code.
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage',
+    },
   },
 
   // AI modified: provide an installable, SSR-safe PWA without caching dynamic navigations.
@@ -131,8 +150,12 @@ export default defineNuxtConfig({
 
   // ─── Fonts ───────────────────────────────────────────────────────────────────
   fonts: {
+    // AI modified: load the display and body families specified by the Pen prototype.
     families: [
-      { name: 'Inter', provider: 'google' },
+      { name: 'Merriweather', provider: 'google' },
+      { name: 'Playfair Display', provider: 'google' },
+      { name: 'Roboto Mono', provider: 'google' },
+      { name: 'Work Sans', provider: 'google' },
       { name: 'Noto Sans SC', provider: 'google' },
     ],
   },
@@ -144,14 +167,28 @@ export default defineNuxtConfig({
     },
     clientBundle: {
       icons: [
+        'lucide:arrow-right',
+        'lucide:arrow-up-right',
         'lucide:bot',
+        'lucide:check',
+        'lucide:chevron-right',
+        'lucide:eye',
+        'lucide:eye-off',
+        'lucide:github',
         'lucide:image',
         'lucide:languages',
         'lucide:layers',
+        'lucide:lock-keyhole',
         'lucide:map',
         'lucide:moon',
         'lucide:plus',
+        'lucide:refresh-cw',
+        'lucide:scan-search',
+        'lucide:shield-check',
+        'lucide:sparkles',
         'lucide:sun',
+        'lucide:sun-moon',
+        'lucide:user-round',
         'lucide:x',
       ],
       scan: false,
@@ -184,17 +221,43 @@ export default defineNuxtConfig({
     },
   },
 
-  // ─── CSRF ────────────────────────────────────────────────────────────────────
-  csurf: {
-    https: false,
-    cookie: {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'strict',
+  // ─── Security headers & CSP ──────────────────────────────────────────────────
+  security: {
+    // AI modified: keep the frontend baseline limited to browser headers and CSP.
+    strict: false,
+    headers: {
+      contentSecurityPolicy: {
+        'base-uri': ['\'none\''],
+        'connect-src': ['\'self\'', 'https:'],
+        'default-src': ['\'self\''],
+        'font-src': ['\'self\'', 'https:', 'data:'],
+        'form-action': ['\'self\''],
+        'frame-ancestors': ['\'none\''],
+        'frame-src': ['\'self\''],
+        'img-src': ['\'self\'', 'https:', 'data:', 'blob:'],
+        'manifest-src': ['\'self\''],
+        'media-src': ['\'self\'', 'https:', 'blob:'],
+        'object-src': ['\'none\''],
+        'script-src': ['\'self\'', 'https:', '\'unsafe-inline\'', '\'strict-dynamic\'', '\'nonce-{{nonce}}\''],
+        'script-src-attr': ['\'none\''],
+        'style-src': ['\'self\'', 'https:', '\'unsafe-inline\''],
+        'upgrade-insecure-requests': true,
+        'worker-src': ['\'self\'', 'blob:'],
+      },
+      referrerPolicy: 'strict-origin-when-cross-origin',
+      xFrameOptions: 'DENY',
     },
-    methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
-    // AI modified: route exceptions belong in routeRules, not the global module options.
-    headerName: 'csrf-token',
+    requestSizeLimiter: false,
+    rateLimiter: false,
+    xssValidator: false,
+    corsHandler: false,
+    allowedMethodsRestricter: false,
+    basicAuth: false,
+    csrf: false,
+    hidePoweredBy: true,
+    nonce: true,
+    removeLoggers: false,
+    sri: true,
   },
 
   // ─── Link Checker ────────────────────────────────────────────────────────────
