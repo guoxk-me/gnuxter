@@ -1,44 +1,77 @@
 {
   "nav": {
-    "home": "Home"
+    "home": "Home",
+    "theme": "Theme"
   },
   "home": {
-    "hero": {
-      "title": "Gnuxter",
-      "subtitle": "A minimal Nuxt starter with focused demos for theme, i18n, animation, and SEO."
+    "eyebrow": "NUXT 4 STARTER",
+    "description": "A clear, restrained Nuxt starting point with just enough character. Theme, i18n, motion, and SEO are composed into a foundation made to grow.",
+    "actions": {
+      "start": "Get started",
+      "source": "View source"
     },
-    "modules": {
+    "foundation": {
+      "title": "Foundation",
+      "caption": "Ready to use, intentionally light."
+    },
+    "features": {
       "theme": {
-        "title": "Theme Toggle",
-        "desc": "Switch light and dark mode.",
-        "toggle": "Toggle Theme",
-        "current": "Current Theme",
-        "light": "Light",
-        "dark": "Dark"
+        "title": "Color mode",
+        "description": "Follows your system and remembers your choice",
+        "action": "Switch theme"
       },
       "i18n": {
-        "title": "Language Switch",
-        "desc": "Change language and see the copy update immediately.",
-        "current": "Current Language",
-        "previewBody": "Switch language and this content updates right away."
+        "title": "Internationalization",
+        "description": "Chinese by default, English whenever needed"
       },
-      "autoAnimate": {
-        "title": "Auto Animate",
-        "desc": "Add or remove items with automatic transitions.",
-        "add": "Add Item",
-        "remove": "Remove Item",
-        "item": "Item {id}"
+      "motion": {
+        "title": "Automatic motion",
+        "description": "Light list transitions that preserve focus",
+        "action": "Add project",
+        "added": "Added {count}",
+        "status": "Added {count} demo projects"
       },
       "seo": {
-        "title": "SEO Output",
-        "desc": "Open the generated results directly."
+        "title": "SEO output",
+        "description": "Sitemap · Robots · OG Image",
+        "action": "Enabled"
       }
+    },
+    "stack": "Technology"
+  },
+  "login": {
+    "eyebrow": "GNUXTER / FRONTEND STARTER",
+    "storyTitle": "Welcome back to Gnuxter.",
+    "storyDescription": "Sign in to continue exploring themes, internationalization, state management, and complete frontend interactions.",
+    "storyNote": "This is the starter's built-in demo sign-in flow.",
+    "title": "Welcome back",
+    "description": "Sign in with your email or username and password.",
+    "account": "Email or username",
+    "accountPlaceholder": "name{'@'}example.com / username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "forgot": "Forgot password?",
+    "challenge": "Verification",
+    "challengePlaceholder": "Enter the answer",
+    "refresh": "Refresh verification",
+    "submit": "Sign in",
+    "submitting": "Signing in",
+    "success": "Signed in",
+    "signupPrompt": "No account yet?",
+    "signup": "Create one",
+    "forgotNotice": "This is a frontend-only demo. Use any account to continue.",
+    "signupNotice": "Account creation will be enabled when a service is connected.",
+    "validation": {
+      "account": "Enter an email or username",
+      "password": "Password must contain at least 6 characters",
+      "challengeRequired": "Enter the verification answer",
+      "challengeIncorrect": "The verification answer is incorrect"
     }
   },
   "footer": {
     "rights": "All rights reserved"
   },
   "lang": {
-    "switch": "Switch Language"
+    "switch": "Switch language"
   }
 }
