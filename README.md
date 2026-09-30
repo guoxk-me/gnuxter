@@ -9,20 +9,25 @@ A production-oriented Nuxt 4 starter template. Gnuxter pre-configures the infras
 | Category | Implementation |
 |---|---|
 | 🏗️ Framework | Nuxt 4, Vue 3, TypeScript |
-| 🎨 Styling | Tailwind CSS 4, CSS custom properties, dark mode |
+| 🎨 Styling | Tailwind CSS 4, CSS custom properties, `@nuxtjs/color-mode` |
 | 🗃️ State | Pinia |
 | 🌐 Internationalization | `@nuxtjs/i18n` — `zh-CN` and `en-US` locales, prefix routing strategy, browser language detection |
 | 🔤 Fonts | `@nuxt/fonts` — Inter, Noto Sans SC via Google Fonts |
 | 🖼️ Icons | `@nuxt/icon` — Lucide collection, server-side bundle |
-| 🔍 SEO | `nuxt-seo-utils`, `nuxt-og-image`, `nuxt-schema-org`, `@nuxtjs/sitemap`, `@nuxtjs/robots` |
+| 🖼️ Images | `@nuxt/image` — optimized images and provider-ready delivery |
+| 🧰 Composables | `@vueuse/nuxt` — auto-imported VueUse utilities |
+| 🔄 Remote State | `@tanstack/vue-query` — opt-in query caching, invalidation, and mutations by business domain |
+| 📝 Forms | Vee Validate 5 beta + Zod — Nuxt auto-imports and Standard Schema validation |
+| 🏷️ Head | `@unhead/vue` — typed document head management used by Nuxt |
+| 🔍 SEO | `@nuxtjs/seo` — aggregated SEO suite for metadata, OG images, Schema.org, Sitemap, Robots, and link checking |
 | ♿ Accessibility | `@nuxt/a11y` — audit feedback enabled in development |
-| 🔒 Security | `nuxt-csurf` — CSRF protection on `POST`, `PUT`, `PATCH`, `DELETE` |
+| 🔒 Security | `nuxt-security` — CSP, SRI, and browser security headers without backend middleware |
 | 📱 Device | `@nuxtjs/device` — server-side device detection |
 | 📲 PWA | `@vite-pwa/nuxt` — install manifest, Workbox service worker, and reproducible app icons |
 | 📊 Analytics | `@vercel/analytics`, `@vercel/speed-insights` |
 | 🎞️ Animation | `@formkit/auto-animate` |
-| 🔗 Link Integrity | `nuxt-link-checker` — disabled by default, intended for CI |
-| 🧪 Testing | Vitest (unit + Nuxt component), Playwright (E2E) |
+| 🔗 Link Integrity | `nuxt-link-checker` via `@nuxtjs/seo` — disabled by default, intended for CI |
+| 🧪 Testing | Vitest (unit + Nuxt component), MSW (API mocks), Playwright (E2E) |
 | 🧹 Linting | `@nuxt/eslint` + `@antfu/eslint-config` |
 
 ## 📋 Prerequisites
@@ -89,6 +94,8 @@ i18n/
     ├── en.json
     └── zh.json
 test/
+├── mocks/                # shared MSW server without business-specific handlers
+├── setup/                # Vitest-wide MSW lifecycle
 ├── nuxt/                 # Nuxt component tests (vitest + @nuxt/test-utils)
 └── unit/                 # pure unit tests (vitest, node environment)
 tests/                    # Playwright E2E tests
@@ -116,6 +123,21 @@ Font families loaded via `@nuxt/fonts`. Currently configured for Inter and Noto 
 ### `icon`
 Icon collections bundled server-side. Currently includes the Lucide collection.
 
+### `colorMode`
+SSR-safe light/dark theme selection backed by `@nuxtjs/color-mode`. The existing Pinia theme action delegates persistence and system preference detection to the module.
+
+### `image`
+`@nuxt/image` is enabled with its default IPX provider. Use `NuxtImg` or `NuxtPicture` for optimized local and remote images.
+
+### `veeValidate`
+Vee Validate 5 composables are auto-imported and currently pinned to `5.0.0-beta.1`, because v5 has not published a stable release yet. Its generic components use the collision-safe names `VeeForm`, `VeeField`, `VeeFieldArray`, and `VeeErrorMessage`. Zod schemas can be passed directly as `validationSchema`; do not add `@vee-validate/zod`.
+
+### MSW
+Vitest projects share a Node-based MSW server from `test/mocks/server.ts`. Add handlers inside each test with `mockServer.use(...)`; handlers reset after every case, and unmocked network requests fail the test. Browser Service Worker mocking is intentionally not registered because this template already uses a PWA Service Worker.
+
+### Vue Query
+`@tanstack/vue-query` is initialized by `app/plugins/vue-query.ts` with SSR cache dehydration and client hydration. Its default `staleTime` is five seconds to prevent an immediate duplicate request after hydration. Keep `useFetch` for Nuxt page and SEO data; use Vue Query only for domains that need long-lived remote state, mutation invalidation, or optimistic updates. A resource must not be owned by both caches.
+
 ### `ogImage`
 Open Graph image generation via `nuxt-og-image`. Preview at `/__og-image__/image` during development.
 
@@ -125,8 +147,8 @@ Sitemap and robots.txt generation. Accessible at `/sitemap.xml` and `/robots.txt
 ### `schemaOrg`
 Structured data identity block. Currently configured as `Organization`. Update `name` and `url` to match the target project.
 
-### `csurf`
-CSRF token enforcement on write methods. Set `https: true` in production; configure any endpoint-specific exception through Nuxt route rules.
+### `security`
+`nuxt-security` provides the frontend security baseline through CSP, SRI, SSR nonces or SSG hashes, and browser security headers. Backend-oriented middleware is explicitly disabled: CSRF, rate limiting, request-size limiting, XSS request validation, CORS handling, Basic Auth, and HTTP method restriction. The starter allows HTTPS API, image, font, and media sources; production projects should replace these broad protocol sources with their actual service domains. For a fully static deployment, response headers may instead be managed by the CDN, while this CSP remains a portable in-app baseline.
 
 ### `a11y`
 Accessibility audit feedback is enabled in development. Findings are surfaced in the browser console.
@@ -135,7 +157,7 @@ Accessibility audit feedback is enabled in development. Findings are surfaced in
 Disabled by default. Enable during CI builds by setting `enabled: true` or via environment variable.
 
 ### `pwa`
-`@vite-pwa/nuxt` generates `/manifest.webmanifest`, `/sw.js`, and a Workbox runtime during production builds. The service worker precaches versioned Nuxt assets and install icons, while SSR navigation and API responses stay network-only to avoid caching dynamic or CSRF-protected data. Updates use the safe `prompt` lifecycle and activate after the existing app session closes unless you add an update prompt UI.
+`@vite-pwa/nuxt` generates `/manifest.webmanifest`, `/sw.js`, and a Workbox runtime during production builds. The service worker precaches versioned Nuxt assets and install icons, while SSR navigation and API responses stay network-only to avoid caching dynamic or state-changing data. Updates use the safe `prompt` lifecycle and activate after the existing app session closes unless you add an update prompt UI.
 
 The source icon is `public/favicon.svg`. Run `pnpm pwa:assets` after replacing it to regenerate the favicon, 192/512 icons, maskable icon, and Apple touch icon.
 
@@ -149,7 +171,7 @@ Before adapting this template for a production project, address the following:
 - [ ] Update `site.url`, `site.name`, `site.description`, and `schemaOrg.identity` in `nuxt.config.ts`
 - [ ] Replace locale strings in `i18n/locales/en.json` and `i18n/locales/zh.json`
 - [ ] Replace the demo landing page in `app/pages/index.vue`
-- [ ] Set `csurf.https` to `true` for HTTPS deployments
+- [ ] Restrict CSP `https:` sources to the API, image, font, analytics, and media domains used by the product
 - [ ] Add `runtimeConfig` and a `.env.example` file for any external service credentials
 - [ ] Enable `linkChecker` in CI
 - [ ] Replace `public/favicon.svg`, then run `pnpm pwa:assets`

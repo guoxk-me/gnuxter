@@ -1,6 +1,6 @@
 # 模板项目缺失清单
 
-> 2026-08-10 更新：PWA、Antfu ESLint、`lint` / `lint:fix` / `typecheck` / `check` 脚本，以及源码直接依赖的显式声明已经补齐。下文保留原始审计背景，已完成项会单独标注。
+> 2026-08-17 更新：PWA、Antfu ESLint、质量脚本、图片优化、Color Mode、VueUse、Unhead、聚合 SEO 套件，以及 `nuxt-security` 响应头 / CSP 基线已经补齐。下文保留原始审计背景，已完成项会单独标注。
 
 ## 结论
 
@@ -16,15 +16,15 @@
 以下能力在初次审计时已经接入，但当时的 README 几乎没有体现：
 
 1. 国际化能力：`@nuxtjs/i18n` 已接入，支持 `zh` / `en`。
-2. 主题切换：基于 Pinia 管理暗黑模式，并持久化到 `localStorage`。
+2. 主题切换：Pinia 对外保留主题操作，底层由 `@nuxtjs/color-mode` 负责 SSR、系统偏好与持久化。
 3. SEO 基础配置：页面已使用 `useSeoMeta`。
 4. Schema.org：页面已通过 `useSchemaOrg` 输出结构化数据。
-5. OG Image：`nuxt-og-image` 已启用。
-6. Sitemap：`@nuxtjs/sitemap` 已启用。
-7. Robots：`@nuxtjs/robots` 已启用。
+5. OG Image：通过 `@nuxtjs/seo` 聚合套件启用。
+6. Sitemap：通过 `@nuxtjs/seo` 聚合套件启用。
+7. Robots：通过 `@nuxtjs/seo` 聚合套件启用。
 8. 动效能力：`@formkit/auto-animate` 已有页面演示。
 9. 基础测试能力：Vitest、Nuxt Test Utils、Playwright 已配置。
-10. 可访问性与辅助能力：`@nuxt/a11y`、`@nuxt/icon`、`@nuxt/fonts` 等模块已接入。
+10. 可访问性与辅助能力：`@nuxt/a11y`、`@nuxt/icon`、`@nuxt/image`、`@nuxt/fonts`、`@vueuse/nuxt` 等模块已接入。
 
 ## 主要缺失项
 
@@ -98,17 +98,9 @@
 
 ### P1 已安装但没有闭环的模块与配置
 
-#### 1. `nuxt-csurf` 只配了 config，没有演示路径
+#### 1. `nuxt-csurf` 只配了 config，没有演示路径（已解决）
 
-现状：`nuxt.config.ts` 已配置 `csurf`。
-
-缺失：
-
-1. 受保护的 `POST` API 示例。
-2. 前端表单示例。
-3. 文档说明当前仅为预置能力。
-
-影响：模板使用者不知道这个模块如何真正使用。
+已移除直接依赖与全局 CSRF 配置，改用 `nuxt-security@2.5.1` 提供 CSP、SRI、SSR nonce / SSG hash 与浏览器安全响应头。纯前端核心层显式关闭 CSRF、限流、请求体限制、请求 XSS 校验、CORS、Basic Auth 与 HTTP 方法限制，并通过 E2E 验证真实响应头及不再设置 CSRF Cookie。
 
 #### 2. `@nuxtjs/device` 已安装但未使用
 
@@ -173,7 +165,7 @@
 
 #### 3. `public/_robots.txt` 容易造成理解混乱
 
-现状：项目已启用 `@nuxtjs/robots`，同时 `public/` 下还有 `_robots.txt`。
+现状：项目已通过 `@nuxtjs/seo` 启用 Robots 子模块，同时 `public/` 下还有 `_robots.txt`。
 
 影响：不清楚最终输出由哪个来源控制，容易让模板使用者困惑。
 
@@ -200,7 +192,7 @@
 配置层面已经包含较多模块，但存在以下问题：
 
 1. `site.url` 与 `schemaOrg.identity.url` 仍为本地地址。
-2. `csurf` 已配置，但缺少实际使用场景。
+2. `nuxt-security` 已限定为响应头与 CSP，后端中间件均显式关闭。
 3. `linkChecker` 被关闭，但没有说明如何在 CI 或构建中启用。
 
 ### `package.json`

@@ -9,20 +9,25 @@
 | 分类 | 实现方案 |
 |---|---|
 | 🏗️ 框架 | Nuxt 4、Vue 3、TypeScript |
-| 🎨 样式 | Tailwind CSS 4、CSS 自定义属性、深色模式 |
+| 🎨 样式 | Tailwind CSS 4、CSS 自定义属性、`@nuxtjs/color-mode` |
 | 🗃️ 状态管理 | Pinia |
 | 🌐 国际化 | `@nuxtjs/i18n` — 中文（zh-CN）与英文（en-US）双语，前缀路由策略，浏览器语言自动检测 |
 | 🔤 字体 | `@nuxt/fonts` — Inter、Noto Sans SC，通过 Google Fonts 加载 |
 | 🖼️ 图标 | `@nuxt/icon` — Lucide 图标集，服务端打包 |
-| 🔍 SEO | `nuxt-seo-utils`、`nuxt-og-image`、`nuxt-schema-org`、`@nuxtjs/sitemap`、`@nuxtjs/robots` |
+| 🖼️ 图片 | `@nuxt/image` — 图片优化与可扩展图片提供商 |
+| 🧰 组合式工具 | `@vueuse/nuxt` — 自动导入 VueUse 工具 |
+| 🔄 远端状态 | `@tanstack/vue-query` — 按业务域选择性使用查询缓存、失效与 mutation |
+| 📝 表单 | Vee Validate 5 beta + Zod — Nuxt 自动导入与 Standard Schema 校验 |
+| 🏷️ Head 管理 | `@unhead/vue` — Nuxt 使用的类型安全文档 Head 管理 |
+| 🔍 SEO | `@nuxtjs/seo` — 聚合元信息、OG 图片、Schema.org、Sitemap、Robots 与链接检查 |
 | ♿ 可访问性 | `@nuxt/a11y` — 开发环境下启用审计反馈 |
-| 🔒 安全 | `nuxt-csurf` — 对 `POST`、`PUT`、`PATCH`、`DELETE` 请求启用 CSRF 防护 |
+| 🔒 安全 | `nuxt-security` — 提供 CSP、SRI 与浏览器安全响应头，不启用后端中间件 |
 | 📱 设备检测 | `@nuxtjs/device` — 服务端设备类型识别 |
 | 📲 PWA | `@vite-pwa/nuxt` — 安装清单、Workbox Service Worker 与可复现应用图标 |
 | 📊 数据分析 | `@vercel/analytics`、`@vercel/speed-insights` |
 | 🎞️ 动画 | `@formkit/auto-animate` |
-| 🔗 链接检查 | `nuxt-link-checker` — 默认关闭，建议在 CI 中启用 |
-| 🧪 测试 | Vitest（单元测试 + Nuxt 组件测试）、Playwright（E2E 测试） |
+| 🔗 链接检查 | 由 `@nuxtjs/seo` 提供的 `nuxt-link-checker` — 默认关闭，建议在 CI 中启用 |
+| 🧪 测试 | Vitest（单元测试 + Nuxt 组件测试）、MSW（接口 Mock）、Playwright（E2E 测试） |
 | 🧹 代码规范 | `@nuxt/eslint` + `@antfu/eslint-config` |
 
 ## 📋 环境要求
@@ -89,6 +94,8 @@ i18n/
     ├── en.json
     └── zh.json
 test/
+├── mocks/                # 不包含具体业务处理器的共享 MSW Server
+├── setup/                # Vitest 共用的 MSW 生命周期
 ├── nuxt/                 # Nuxt 组件测试（vitest + @nuxt/test-utils）
 └── unit/                 # 纯单元测试（vitest，node 环境）
 tests/                    # Playwright E2E 测试
@@ -116,6 +123,21 @@ vitest.config.ts
 ### `icon`
 服务端打包的图标集合。当前包含 Lucide 图标集。
 
+### `colorMode`
+通过 `@nuxtjs/color-mode` 提供 SSR 安全的深浅色主题选择。现有 Pinia 主题操作会将持久化与系统偏好检测交给该模块。
+
+### `image`
+`@nuxt/image` 已使用默认 IPX 提供商启用。使用 `NuxtImg` 或 `NuxtPicture` 可优化本地及远程图片。
+
+### `veeValidate`
+Vee Validate 5 的组合式 API 已自动导入；由于 v5 尚未发布稳定版，目前明确锁定为 `5.0.0-beta.1`。通用组件采用避免命名冲突的 `VeeForm`、`VeeField`、`VeeFieldArray` 和 `VeeErrorMessage`。Zod Schema 可以直接传给 `validationSchema`，无需添加 `@vee-validate/zod`。
+
+### MSW
+两个 Vitest 项目共用 `test/mocks/server.ts` 中基于 Node 的 MSW Server。每个测试通过 `mockServer.use(...)` 声明自己的处理器；处理器会在测试后重置，未 Mock 的网络请求将直接导致测试失败。由于模板已有 PWA Service Worker，此处不会注册浏览器端 Mock Service Worker。
+
+### Vue Query
+`app/plugins/vue-query.ts` 已初始化 `@tanstack/vue-query`，并处理 SSR 缓存脱水与客户端水合。默认 `staleTime` 为 5 秒，避免水合后立刻发起重复请求。Nuxt 页面及 SEO 数据继续使用 `useFetch`；仅在需要长期远端状态、mutation 失效或乐观更新的业务域使用 Vue Query。同一资源不能同时交给两套缓存管理。
+
 ### `ogImage`
 通过 `nuxt-og-image` 生成 Open Graph 图片。开发环境下可在 `/__og-image__/image` 预览。
 
@@ -125,8 +147,8 @@ vitest.config.ts
 ### `schemaOrg`
 结构化数据身份块，当前配置为 `Organization` 类型。需将 `name` 与 `url` 更新为目标项目的实际信息。
 
-### `csurf`
-对写操作方法强制校验 CSRF Token。生产环境部署时应将 `https` 设为 `true`；端点级例外需通过 Nuxt route rules 配置。
+### `security`
+`nuxt-security` 通过 CSP、SRI、SSR nonce / SSG hash 与浏览器安全响应头提供纯前端安全基线。CSRF、限流、请求体限制、请求 XSS 校验、CORS、Basic Auth 与 HTTP 方法限制等后端中间件均显式关闭。模板允许 HTTPS API、图片、字体与媒体来源；生产项目应将宽泛的协议来源收紧为实际使用的服务域名。若最终采用纯静态托管，也可以把响应头交给 CDN 平台配置，同时保留当前 CSP 作为可移植的应用内基线。
 
 ### `a11y`
 开发环境下启用可访问性审计反馈，结果输出至浏览器控制台。
@@ -135,7 +157,7 @@ vitest.config.ts
 默认关闭。可在 CI 构建阶段通过设置 `enabled: true` 启用。
 
 ### `pwa`
-生产构建时，`@vite-pwa/nuxt` 会生成 `/manifest.webmanifest`、`/sw.js` 与 Workbox 运行时。Service Worker 会预缓存带版本的 Nuxt 静态资源和安装图标；SSR 页面导航与 API 响应保持仅网络访问，避免缓存动态数据或受 CSRF 保护的数据。更新采用安全的 `prompt` 生命周期；若未增加更新提示 UI，新版本会在当前应用会话关闭后激活。
+生产构建时，`@vite-pwa/nuxt` 会生成 `/manifest.webmanifest`、`/sw.js` 与 Workbox 运行时。Service Worker 会预缓存带版本的 Nuxt 静态资源和安装图标；SSR 页面导航与 API 响应保持仅网络访问，避免缓存动态数据或会修改状态的数据。更新采用安全的 `prompt` 生命周期；若未增加更新提示 UI，新版本会在当前应用会话关闭后激活。
 
 图标源文件为 `public/favicon.svg`。替换后运行 `pnpm pwa:assets`，即可重新生成 favicon、192/512 图标、maskable 图标与 Apple Touch 图标。
 
@@ -149,7 +171,7 @@ Nuxt 负责项目感知的全局变量和目录规则，`@antfu/eslint-config` �
 - [ ] 更新 `nuxt.config.ts` 中的 `site.url`、`site.name`、`site.description` 及 `schemaOrg.identity`
 - [ ] 替换 `i18n/locales/en.json` 与 `i18n/locales/zh.json` 中的语言字符串
 - [ ] 替换 `app/pages/index.vue` 中的演示首页
-- [ ] HTTPS 部署时将 `csurf.https` 设为 `true`
+- [ ] 将 CSP 中的 `https:` 来源收紧为产品实际使用的 API、图片、字体、分析与媒体域名
 - [ ] 为外部服务凭据添加 `runtimeConfig` 及 `.env.example` 文件
 - [ ] 在 CI 中启用 `linkChecker`
 - [ ] 替换 `public/favicon.svg`，然后运行 `pnpm pwa:assets`
