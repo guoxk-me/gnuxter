@@ -2,9 +2,9 @@
 
 @theme {
   /* ─── 字体 ─────────────────────────────────────────────────────────────── */
-  --font-sans: 'Work Sans', 'Noto Serif SC', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-primary: 'Merriweather', serif;
-  --font-header: 'Playfair Display', 'Lora', serif;
+  --font-sans: 'Work Sans', 'Noto Sans SC', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-primary: 'Merriweather', 'Noto Sans SC', sans-serif;
+  --font-header: 'Playfair Display', 'Noto Serif SC', serif;
 
   /* ─── 颜色（引用 CSS 变量，inline 让工具类自动生成） ─────────────────────── */
   --color-background: var(--background);
@@ -38,41 +38,52 @@
 
 @layer base {
   :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.141 0.005 285.823);
-    --primary: oklch(0.21 0.006 285.885);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.967 0.001 286.375);
-    --secondary-foreground: oklch(37.3% 0.034 259.733);
-    --muted: oklch(0.967 0.001 286.375);
-    --muted-foreground: oklch(55.1% 0.027 264.364);
-    --border: oklch(0.92 0.004 286.32);
-    --input: oklch(0.92 0.004 286.32);
-    --ring: oklch(0.705 0.015 286.067);
-    --radius: 0.625rem;
+    /* AI modified: mirror the violet semantic system from the current Pen prototype. */
+    --background: #ffffff;
+    --foreground: #09090b;
+    --primary: #7c3aed;
+    --primary-foreground: #ffffff;
+    --secondary: #f4f4f5;
+    --secondary-foreground: #3f3f46;
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+    --accent: #f5f3ff;
+    --accent-foreground: #6d28d9;
+    --border: #e4e4e7;
+    --input: #e4e4e7;
+    --ring: #8b5cf6;
+    --danger: #dc2626;
+    --success: #059669;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: oklch(14.5% 0 0);
-    --foreground: oklch(96.7% 0.003 264.542);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.21 0.006 285.885);
-    --secondary: oklch(0.274 0.006 286.033);
-    --secondary-foreground: oklch(87.2% 0.01 258.338);
-    --muted: oklch(0.274 0.006 286.033);
-    --muted-foreground: oklch(70.7% 0.022 261.325);
-    --border: oklch(0.274 0.006 286.033);
-    --input: oklch(0.274 0.006 286.033);
-    --ring: oklch(0.442 0.017 285.786);
+    --background: #09090b;
+    --foreground: #f4f4f5;
+    --primary: #8b5cf6;
+    --primary-foreground: #ffffff;
+    --secondary: #27272a;
+    --secondary-foreground: #e4e4e7;
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+    --accent: #2e1065;
+    --accent-foreground: #ddd6fe;
+    --border: #27272a;
+    --input: #27272a;
+    --ring: #a78bfa;
+    --danger: #f87171;
+    --success: #34d399;
   }
 
   html {
     @apply text-sm antialiased scroll-smooth;
-    font-family: 'Work Sans', 'Noto Serif SC', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-family: 'Work Sans', 'Noto Sans SC', ui-sans-serif, system-ui, -apple-system, sans-serif;
     color-scheme: light dark;
   }
 
   body {
+    min-width: 320px;
+    min-height: 100dvh;
     background-color: var(--background);
     color: var(--foreground);
     transition: background-color 0.4s ease-out, color 0.4s ease-out;
@@ -87,13 +98,10 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Merriweather', serif;
+    /* AI modified: keep Merriweather for Latin headings while matching Pen's sans-serif CJK fallback. */
+    font-family: 'Merriweather', 'Noto Sans SC', sans-serif;
   }
 
-  header {
-    font-family: 'Playfair Display', 'Lora', serif;
-    font-weight: 500;
-  }
 }
 
 @layer components {
@@ -149,4 +157,15 @@
 /* Buttons & links */
 button, a {
   @apply cursor-pointer outline-hidden;
+}
+
+button {
+  background: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }

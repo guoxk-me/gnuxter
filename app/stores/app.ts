@@ -2,23 +2,12 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', () => {
   // ─── Theme ──────────────────────────────────────────────────────────────────
-  const isDark = ref(false)
+  // AI modified: delegate SSR-safe theme persistence and system preference to Nuxt Color Mode.
+  const colorMode = useColorMode()
+  const isDark = computed(() => colorMode.value === 'dark')
 
   function toggleTheme() {
-    isDark.value = !isDark.value
-    if (import.meta.client) {
-      document.documentElement.classList.toggle('dark', isDark.value)
-      localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-    }
-  }
-
-  function initTheme() {
-    if (import.meta.client) {
-      const saved = localStorage.getItem('theme')
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      isDark.value = saved ? saved === 'dark' : prefersDark
-      document.documentElement.classList.toggle('dark', isDark.value)
-    }
+    colorMode.preference = isDark.value ? 'light' : 'dark'
   }
 
   // ─── Nav ────────────────────────────────────────────────────────────────────
@@ -35,7 +24,6 @@ export const useAppStore = defineStore('app', () => {
   return {
     isDark,
     toggleTheme,
-    initTheme,
     isMobileMenuOpen,
     toggleMobileMenu,
     closeMobileMenu,
